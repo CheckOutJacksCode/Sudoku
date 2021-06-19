@@ -108,12 +108,14 @@ class Field {
             return upper;
         }
     }
-    checkVisited(row, col) {
+    checkIfVisited(row, col, num) {
         for (let i = 0; i < visited.length; i++) {
             //console.log(visited[i][0]);
             //console.log(visited[i][1]);
             if (visited[i][0] === row && visited[i][1] === col) {
+                console.log(num);
                 console.log(visited[i][0]);
+                console.log(visited[i][1]);
                 console.log('visited');
                 return true
             }
@@ -122,47 +124,72 @@ class Field {
     }
 
     solveField (row, col) {
+        console.log(row, col);
         console.log(this.field[row][col]);
         if (this.field[row][col] === hat) {
-            console.log('you win');
+            console.log('WWWWWWWWIIIIIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNNNNNNNNNNNNNNNNNN');
             return true;
         }
-        visited.push([row, col])
-        //console.log(visited);
-        //console.log(this.checkVisited(2, 4));
-        //console.log(width);
-        if ((col + 1) < width) {
-            if (this.field[row][col + 1] !== hole) {
-                console.log('first one');
-                this.solveField(row, (col + 1));
-                console.log('yo');
-                return;
+        else {
+            visited.push([row, col])
+            //console.log(visited);
+            //console.log(this.checkVisited(2, 4));
+            //console.log(width);
+            if ((col + 1) < width) {
+                if (this.field[row][col + 1] !== hole) {
+                    if (this.checkIfVisited(row, (col + 1), 1) === false) {
+                        if (this.solveField(row, (col + 1))) {
+                            return true;
+                        }
+                        //return;
+                    }
+                }
             }
-        }
-        if (row > 0) {
-            if (this.field[row - 1][col] !== hole) {
-                console.log('second one');
-                console.log((row - 1), col);
-                console.log(this.checkVisited((row - 1), col));
-                return;
-                this.solveField((row - 1), col);
-            }
-        }
-        if (col > 0) {
-            if (this.field[row][col - 1] !== hole) {
-                console.log('third one');
-                return;
-                this.solveField(row, (col - 1));
-            }
-        }
-        if ((row + 1) < height) {
-            if (this.field[row + 1][col] !== hole) {
-                console.log('fourth one');
-                this.solveField((row + 1), col);
+            if (row > 0) {
+                if (this.field[row - 1][col] !== hole) {
+                    if (this.checkIfVisited((row - 1), col, 2) === false) {
+                        if (this.solveField((row - 1), col)) {
+                            return true;
+                        }
 
+                        //return;
+                    }
+                }
             }
+            if (col > 0) {
+                if (this.field[row][col - 1] !== hole) {
+                    if (this.checkIfVisited(row, (col - 1), 3) === false) {
+                        //console.log('third one');
+                        if (this.solveField(row, (col - 1))) {
+                            return true;
+                        }
+                        //return;
+                    }
+
+                }
+            }
+            if ((row + 1) < height) {
+                if (this.field[row + 1][col] !== hole) {
+                    if (this.checkIfVisited((row + 1), col, 4) === false) {
+                        //console.log('fourth one');
+                        if (this.solveField((row + 1), col)) {
+                            return true;
+                        }
+                        //return;
+                    }
+                }
+            }
+            //visited.push(topCell);
+            //this.solveField(previous[0], previous[1]);
+            //let row = previousCell[0];
+            //let col = previousCell[1];
+            //this.solveField(row, col);
+            return false;
         }
-        return false;
+    }   
+    winFunction () {
+        console.log('aaakakkkakakhfhfuhauihruehavufavfhajkvhfja;hfra');
+        
     }
 }
 const height = prompt('pick a height: ');
@@ -171,4 +198,4 @@ const percentage = prompt('percentage of holes: ');
 const field = new Field(Field.generateField(height, width, percentage));
 field.printField();
 //field.play();
-console.log(field.solveField(2, 4));
+field.solveField(0, 0);
