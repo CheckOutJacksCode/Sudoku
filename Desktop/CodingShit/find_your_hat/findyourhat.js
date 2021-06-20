@@ -113,10 +113,6 @@ class Field {
             //console.log(visited[i][0]);
             //console.log(visited[i][1]);
             if (visited[i][0] === row && visited[i][1] === col) {
-                console.log(num);
-                console.log(visited[i][0]);
-                console.log(visited[i][1]);
-                console.log('visited');
                 return true
             }
         }
@@ -124,10 +120,8 @@ class Field {
     }
 
     solveField (row, col) {
-        console.log(row, col);
-        console.log(this.field[row][col]);
+        //console.log(this.field[row][col]);
         if (this.field[row][col] === hat) {
-            console.log('WWWWWWWWIIIIIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNNNNNNNNNNNNNNNNNN');
             return true;
         }
         else {
@@ -163,9 +157,7 @@ class Field {
                         if (this.solveField(row, (col - 1))) {
                             return true;
                         }
-                        //return;
                     }
-
                 }
             }
             if ((row + 1) < height) {
@@ -175,7 +167,6 @@ class Field {
                         if (this.solveField((row + 1), col)) {
                             return true;
                         }
-                        //return;
                     }
                 }
             }
@@ -184,12 +175,9 @@ class Field {
             //let row = previousCell[0];
             //let col = previousCell[1];
             //this.solveField(row, col);
-            return false;
+            //console.log('you suck');
         }
-    }   
-    winFunction () {
-        console.log('aaakakkkakakhfhfuhauihruehavufavfhajkvhfja;hfra');
-        
+        return false;
     }
 }
 const height = prompt('pick a height: ');
@@ -198,4 +186,8 @@ const percentage = prompt('percentage of holes: ');
 const field = new Field(Field.generateField(height, width, percentage));
 field.printField();
 //field.play();
-field.solveField(0, 0);
+if (field.solveField(0, 0)) {
+    field.play();
+} else {
+    console.log('field is unsolvable.');
+}
